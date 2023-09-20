@@ -157,6 +157,7 @@ Ordinal: {{ .Ordinal}}
 							{{/* only include fields that are currently supported by the filter mechanism (in JS at the end of the file) */}}
 							data-meta="{{ (dict "Tags" $metadata.Tags "Rating" $metadata.Rating "ColorLabels" $metadata.ColorLabels "ImageDescription" $metadata.ImageDescription) | jsonify }}"
 						{{ end }}
+						data-relativeurl="../shop/{{ .Title }}"
 					{{ end }}
 					>
 					<img			
@@ -233,7 +234,16 @@ Ordinal: {{ .Ordinal}}
 					{ {{ $justifiedGalleryParameters | safeJS }} }
 				)
 			);
-		});
+			$('.galleryImg').on('click', function(event) {
+				// event.preventDefault(); // Prevent the default behavior (opening the image)
+				// Get the relative URL you want to redirect to (replace with your URL)
+				// const relativeURL =  '../shop'
+				const relativeURL = $(this).data('relativeurl');
+				// Perform the redirect
+				window.location.href = relativeURL;
+				// }, { passive: false 
+				});
+			}); 
 
 		// initialize the justified gallery
 		gallery.justifiedGallery({
